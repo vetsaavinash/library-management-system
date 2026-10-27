@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book | Library Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container narrow">
+        <header class="page-header">
+            <div>
+                <h1>Add a Book</h1>
+                <p>Enter the book details below.</p>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <section class="card">
+            <form method="POST" action="{{ url_for('add_book') }}">
+                <label for="title">Book Title</label>
+                <input id="title" name="title" type="text" required maxlength="200">
+
+                <label for="author">Author</label>
+                <input id="author" name="author" type="text" required maxlength="150">
+
+                <label for="category">Category</label>
+                <input id="category" name="category" type="text" required maxlength="100">
+
+                <label for="quantity">Quantity</label>
+                <input id="quantity" name="quantity" type="number"
+                       min="0" step="1" required>
+
+                <div class="form-actions">
+                    <button class="btn primary" type="submit">Save Book</button>
+                    <a class="btn secondary" href="{{ url_for('index') }}">Cancel</a>
+                </div>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
